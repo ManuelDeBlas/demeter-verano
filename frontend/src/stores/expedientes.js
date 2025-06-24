@@ -66,7 +66,7 @@ export const useExpedientesStore = crearStore("expedientes", {
         solicitud.expediente = null;
         solicitud.estado = "PENDIENTE_EVALUACION";
         await usePresupuestosSecresStore().cargarElementos();
-        expediente.costeCentimos = calcularCosteExpediente(expediente);
+        expediente.costeCentimos = this.calcularCosteExpediente(expediente);
 
         return "Solicitud eliminada del expediente correctamente";
       }
@@ -90,11 +90,12 @@ export const useExpedientesStore = crearStore("expedientes", {
       expediente.solicitudes.push(soliditudEnStore);
       // soliditudEnStore.expediente = expediente;  // Esto genera una referencia circular.
     }
-    expediente.costeCentimos = calcularCosteExpediente(expediente);
+    expediente.costeCentimos = this.calcularCosteExpediente(expediente);
   },
   calcularCosteExpediente(expediente) {
+    console.log(expediente.solicitudes)    
     return expediente.solicitudes.reduce((total, solicitud) => {
-      return total + (solicitud[costeCentimos] || 0);
+      return total + (solicitud.costeCentimos || 0);
     }, 0);
   },
 });

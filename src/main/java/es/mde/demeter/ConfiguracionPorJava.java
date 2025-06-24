@@ -42,7 +42,7 @@ import jakarta.persistence.EntityManagerFactory;
 @ComponentScan({ "${paquetes-con-componentes}" })
 @PropertySource({ "classpath:config/rest.properties", "classpath:config/jackson.properties",
     "classpath:config/email.properties", "classpath:config/DB.properties",
- //"classpath:config/passwordsBD.properties","classpath:config/passwords-email.properties"
+ "classpath:config/passwordsBD.properties","classpath:config/passwords-email.properties"
 })
 public class ConfiguracionPorJava {
 
