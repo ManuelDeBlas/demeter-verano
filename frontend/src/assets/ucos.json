@@ -1,0 +1,9 @@
+{
+  "_embedded": {
+    "ucos": [
+      { "nombreUco": "RAAA 75", "ciu": "64738393" },
+      { "nombreUco": "RING 432", "ciu": "68599977" },
+      { "nombreUco": "RINF 99", "ciu": "8765354" }
+    ]
+  }
+}

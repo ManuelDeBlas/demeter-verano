@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+	xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm 
+                                     http://java.sun.com/xml/ns/persistence/orm_1_0.xsd"
+	version="1.0">
+
+	<mapped-superclass
+		class="es.mde.secres.Reservista" access="FIELD">
+		<attributes>
+			<basic name="nombre" />
+			<basic name="apellido1" />
+			<basic name="apellido2" />
+			<basic name="empleo" />
+			<basic name="dni" />
+			<basic name="telefonoParticular" />
+			<basic name="fechaFinCompromiso" />
+			<basic name="fechaCaducidadReconocimientoMedico" />
+			<basic name="localidadResidencia" />
+			<basic name="subdelegacionDefensa" />
+			<one-to-many name="solicitudes"
+				target-entity="es.mde.entidades.SolicitudConId"
+				mapped-by="reservista" />
+		</attributes>
+	</mapped-superclass>
+
+</entity-mappings>

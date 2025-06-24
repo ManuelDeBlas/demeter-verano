@@ -1,0 +1,38 @@
+[
+	{
+		"empleo": "CAP",
+		"centimos": 10000
+	},
+	{
+		"empleo": "TTE",
+		"centimos": 9000
+	},
+	{
+		"empleo": "ALF",
+		"centimos": 8000
+	},
+	{
+		"empleo": "BG",
+		"centimos": 7000
+	},
+	{
+		"empleo": "SGTO1",
+		"centimos": 6000
+	},
+	{
+		"empleo": "SGTO",
+		"centimos": 5000
+	},
+	{
+		"empleo": "CB1",
+		"centimos": 4500
+	},
+	{
+		"empleo": "CB",
+		"centimos": 4000
+	},
+	{
+		"empleo": "SDO",
+		"centimos": 3500
+	}
+]
