@@ -36,7 +36,7 @@
       <div class="mb-0">
         {{ expediente.numeroExpediente }}
         <strong>{{ formatearAtributoEnElFrontend(expediente.estado) }}</strong>
-        Coste: {{ formatearCentimosAEuros(expediente.coste) }}
+        Coste: {{ formatearCentimosAEuros(expediente.costeCentimos) }}
       </div>
     </div>
     <div class="col-md-6 text-end">

@@ -41,10 +41,7 @@ export const useExpedientesStore = crearStore("expedientes", {
         solicitud.expediente = expediente;
         solicitud.estado = "ACEPTADA_PENDIENTE_PUBLICACION";
         await usePresupuestosSecresStore().cargarElementos();
-        const costeExpediente = await get(
-          `${API_BASE_URL}/expedientes/coste-expediente/${expediente.numeroExpediente}`
-        );
-        expediente.coste = costeExpediente.data;
+        expediente.costeCentimos = this.calcularCosteExpediente(expediente);
 
         return "Solicitud añadida al expediente correctamente";
       }
@@ -69,10 +66,7 @@ export const useExpedientesStore = crearStore("expedientes", {
         solicitud.expediente = null;
         solicitud.estado = "PENDIENTE_EVALUACION";
         await usePresupuestosSecresStore().cargarElementos();
-        const costeExpediente = await get(
-          `${API_BASE_URL}/expedientes/coste-expediente/${expediente.numeroExpediente}`
-        );
-        expediente.coste = costeExpediente.data;
+        expediente.costeCentimos = calcularCosteExpediente(expediente);
 
         return "Solicitud eliminada del expediente correctamente";
       }
@@ -96,9 +90,11 @@ export const useExpedientesStore = crearStore("expedientes", {
       expediente.solicitudes.push(soliditudEnStore);
       // soliditudEnStore.expediente = expediente;  // Esto genera una referencia circular.
     }
-    const costeExpediente = await get(
-      `${API_BASE_URL}/expedientes/coste-expediente/${expediente.numeroExpediente}`
-    );
-    expediente.coste = costeExpediente.data;
+    expediente.costeCentimos = calcularCosteExpediente(expediente);
+  },
+  calcularCosteExpediente(expediente) {
+    return expediente.solicitudes.reduce((total, solicitud) => {
+      return total + (solicitud[costeCentimos] || 0);
+    }, 0);
   },
 });
