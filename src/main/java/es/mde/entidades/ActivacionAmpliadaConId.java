@@ -1,8 +1,10 @@
 package es.mde.entidades;
 
+import es.mde.listeners.ActivacionAmpliadaListener;
 import es.mde.secres.ActivacionAmpliada;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 
 /**
  * Representa una activación ampliada. Extiende la funcionalidad de
@@ -17,6 +19,7 @@ import jakarta.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("Activacion ampliada")
+@EntityListeners(ActivacionAmpliadaListener.class)
 public class ActivacionAmpliadaConId extends SolicitudConId implements ActivacionAmpliada {
 
   /**

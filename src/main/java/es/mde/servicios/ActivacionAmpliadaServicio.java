@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import es.mde.entidades.ActivacionAmpliadaConId;
 import es.mde.repositorios.CostePorDiaDAO;
-import es.mde.repositorios.SolicitudDAO;
 import jakarta.persistence.EntityManager;
 
 /**
@@ -28,9 +27,9 @@ public class ActivacionAmpliadaServicio extends AbstractSolicitudServicio<Activa
    * @param solicitudDAO   DAO para gestionar solicitudes.
    * @param costePorDiaDAO DAO para obtener costes diarios.
    */
-  public ActivacionAmpliadaServicio(EntityManager entityManager, SolicitudDAO solicitudDAO,
+  public ActivacionAmpliadaServicio(EntityManager entityManager,
       CostePorDiaDAO costePorDiaDAO, EmailSenderServicio emailSenderServicio) {
-    super(entityManager, solicitudDAO, costePorDiaDAO, emailSenderServicio);
+    super(entityManager, costePorDiaDAO, emailSenderServicio);
   }
 
 }

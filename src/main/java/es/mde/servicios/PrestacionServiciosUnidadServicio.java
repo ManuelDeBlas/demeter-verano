@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import es.mde.entidades.PrestacionServiciosUnidadConId;
 import es.mde.repositorios.CostePorDiaDAO;
-import es.mde.repositorios.SolicitudDAO;
 import jakarta.persistence.EntityManager;
 
 /**
@@ -31,9 +30,9 @@ public class PrestacionServiciosUnidadServicio extends AbstractSolicitudServicio
    * @param solicitudDAO   DAO para gestionar las solicitudes.
    * @param costePorDiaDAO DAO para obtener los costes por día según el empleo.
    */
-  public PrestacionServiciosUnidadServicio(EntityManager entityManager, SolicitudDAO solicitudDAO,
+  public PrestacionServiciosUnidadServicio(EntityManager entityManager,
       CostePorDiaDAO costePorDiaDAO, EmailSenderServicio emailSenderServicio) {
-    super(entityManager, solicitudDAO, costePorDiaDAO, emailSenderServicio);
+    super(entityManager, costePorDiaDAO, emailSenderServicio);
   }
 
 }

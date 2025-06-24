@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import es.mde.entidades.FormacionContinuadaConId;
 import es.mde.repositorios.CosteFormacionContinuadaDAO;
 import es.mde.repositorios.CostePorDiaDAO;
-import es.mde.repositorios.SolicitudDAO;
 import jakarta.persistence.EntityManager;
 
 /**
@@ -35,10 +34,10 @@ public class FormacionContinuadaServicio extends AbstractSolicitudServicio<Forma
    * @param costeFormacionContinuadaDAO DAO específico para obtener los costes
    *                                    asociados a la formación.
    */
-  public FormacionContinuadaServicio(EntityManager entityManager, SolicitudDAO solicitudDAO,
+  public FormacionContinuadaServicio(EntityManager entityManager,
       CostePorDiaDAO costePorDiaDAO, CosteFormacionContinuadaDAO costeFormacionContinuadaDAO,
       EmailSenderServicio emailSenderServicio) {
-    super(entityManager, solicitudDAO, costePorDiaDAO, emailSenderServicio);
+    super(entityManager, costePorDiaDAO, emailSenderServicio);
     this.costeFormacionContinuadaDAO = costeFormacionContinuadaDAO;
   }
 

@@ -63,9 +63,6 @@ public class ConfiguracionRest {
       RepositoryRestConfiguration config) {
     Map<Class<?>, Class<?>> controllersRegistrados = new HashMap<>();
     controllersRegistrados.put(ExpedienteConId.class, ExpedienteController.class);
-    controllersRegistrados.put(FormacionContinuadaConId.class, FormacionContinuadaController.class);
-    controllersRegistrados.put(ActivacionAmpliadaConId.class, ActivacionAmpliadaController.class);
-    controllersRegistrados.put(PrestacionServiciosUnidadConId.class, PrestacionServiciosController.class);
 
     return new RepresentationModelProcessor<RepositorySearchesResource>() {
 

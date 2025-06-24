@@ -1,8 +1,10 @@
 package es.mde.entidades;
 
+import es.mde.listeners.FormacionContinuadaListener;
 import es.mde.secres.FormacionContinuada;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 
 /**
  * Representa una formación continuada. Extiende la funcionalidad de
@@ -17,6 +19,7 @@ import jakarta.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("Formacion continuada")
+@EntityListeners(FormacionContinuadaListener.class)
 public class FormacionContinuadaConId extends SolicitudConId implements FormacionContinuada {
 
   /**

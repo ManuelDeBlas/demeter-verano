@@ -1,8 +1,10 @@
 package es.mde.entidades;
 
+import es.mde.listeners.PrestacionServiciosUnidadListener;
 import es.mde.secres.PrestacionServiciosUnidad;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 
 /**
  * Representa una prestación de servicios en una unidad. Extiende la
@@ -18,6 +20,7 @@ import jakarta.persistence.Entity;
  */
 @Entity
 @DiscriminatorValue("Prestacion servicios unidad")
+@EntityListeners(PrestacionServiciosUnidadListener.class)
 public class PrestacionServiciosUnidadConId extends SolicitudConId implements PrestacionServiciosUnidad {
 
   /**
