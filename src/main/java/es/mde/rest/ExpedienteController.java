@@ -39,13 +39,6 @@ public class ExpedienteController {
     this.expedienteDAO = expedienteDAO;
   }
 
-  @GetMapping("/expedientes/coste-expediente/{numeroExpediente}")
-  @ResponseBody
-  public int getCosteCentimosExpedienteByNumeroExpediente(@PathVariable("numeroExpediente") String numeroExpediente) {
-
-    return expedienteDAO.getCosteCentimosExpedienteByNumeroExpediente(numeroExpediente);
-  }
-
   /**
    * Asigna una solicitud a un expediente.
    * 

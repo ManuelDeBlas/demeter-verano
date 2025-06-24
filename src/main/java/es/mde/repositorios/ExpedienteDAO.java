@@ -19,7 +19,7 @@ import es.mde.entidades.ExpedienteConId;
  * @version 1.0
  */
 @RepositoryRestResource(path = "expedientes", itemResourceRel = "expediente", collectionResourceRel = "expedientes")
-public interface ExpedienteDAO extends JpaRepository<ExpedienteConId, Long>, ExpedienteDAOCustom {
+public interface ExpedienteDAO extends JpaRepository<ExpedienteConId, Long> {
 
   /**
    * Busca un expediente por su número identificativo único.
