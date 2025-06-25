@@ -1,12 +1,15 @@
 package es.mde.entidades;
 
+import es.mde.listeners.PresupuestoSecresListener;
 import es.mde.secres.Presupuesto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /**
  * Entidad JPA que representa un presupuesto con identificador único. Hereda los atributos y métodos
@@ -19,6 +22,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "PRESUPUESTOS")
+@EntityListeners(PresupuestoSecresListener.class)
 public class PresupuestoSecresConId {
 
   /**
@@ -31,6 +35,9 @@ public class PresupuestoSecresConId {
 
   private int cantidadCentimosConcedido;
   private int anho;
+  
+  @Transient
+  private int cantidadCentimosGastado;
 
   /**
    * Obtiene el identificador único del presupuesto.
@@ -64,6 +71,14 @@ public class PresupuestoSecresConId {
 
   public void setAnho(int anho) {
     this.anho = anho;
+  }
+  
+  public int getCantidadCentimosGastado() {
+    return cantidadCentimosGastado;
+  }
+  
+  public void setCantidadCentimosGastado(int cantidadCentimosGastado) {
+    this.cantidadCentimosGastado = cantidadCentimosGastado;
   }
 
 }

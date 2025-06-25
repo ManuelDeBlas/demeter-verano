@@ -89,7 +89,8 @@
         <tr>
           <th class="border px-4 py-2">Año</th>
           <th class="border px-4 py-2">Cantidad concedida</th>
-          <th class="border px-4 py-2">Nuevo valor</th>
+          <th class="border px-4 py-2">Cantidad gastada</th>
+          <th class="border px-4 py-2">Nueva cantidad concedida</th>
           <th class="border px-4 py-2">Acciones</th>
         </tr>
       </thead>
@@ -101,6 +102,9 @@
           <td class="border px-4 py-2">{{ presupuesto.anho }}</td>
           <td class="border px-4 py-2">
             {{ formatearCentimosAEuros(presupuesto.cantidadCentimosConcedido) }}
+          </td>
+          <td class="border px-4 py-2">
+            {{ formatearCentimosAEuros(presupuesto.cantidadCentimosGastado) }}
           </td>
           <td class="px-2 py-2">
             <input

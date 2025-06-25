@@ -27,10 +27,10 @@ public class PresupuestoSecresServicio {
       throw new IllegalArgumentException("ERROR: No existe presupuesto para el año " + anho);
     }
 
-    return presupuesto.getCantidadCentimosConcedido() - getCantidadCentimosGastado(anho);
+    return presupuesto.getCantidadCentimosConcedido() - calcularCantidadCentimosGastado(anho);
   }
 
-  private int getCantidadCentimosGastado(int anho) {
+  public int calcularCantidadCentimosGastado(int anho) {
     int cantidad = 0;
     LocalDate start = LocalDate.of(anho, 1, 1);
     LocalDate end = LocalDate.of(anho, 12, 31);
