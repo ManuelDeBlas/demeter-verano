@@ -92,8 +92,7 @@ export const useExpedientesStore = crearStore("expedientes", {
     }
     expediente.costeCentimos = this.calcularCosteExpediente(expediente);
   },
-  calcularCosteExpediente(expediente) {
-    console.log(expediente.solicitudes)    
+  calcularCosteExpediente(expediente) {   
     return expediente.solicitudes.reduce((total, solicitud) => {
       return total + (solicitud.costeCentimos || 0);
     }, 0);
