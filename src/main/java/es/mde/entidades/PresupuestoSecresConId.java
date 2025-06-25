@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "PRESUPUESTOS")
-public class PresupuestoConId extends Presupuesto {
+public class PresupuestoSecresConId {
 
   /**
    * Identificador único del presupuesto. Se genera automáticamente con la
@@ -29,6 +29,8 @@ public class PresupuestoConId extends Presupuesto {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true)
   private Long id;
+
+  private int cantidadCentimosConcedido;
 
   /**
    * Obtiene el identificador único del presupuesto.
@@ -47,5 +49,13 @@ public class PresupuestoConId extends Presupuesto {
   public void setId(Long id) {
     this.id = id;
   }
-
+  
+  public int getCantidadCentimosConcedido() {
+    return cantidadCentimosConcedido;
+  }
+  
+  public void setCantidadCentimosConcedido(int cantidadCentimosConcedido) {
+    this.cantidadCentimosConcedido = cantidadCentimosConcedido;
+  }
+  
 }
