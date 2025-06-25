@@ -13,6 +13,7 @@ import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 /**
  * Representa una solicitud con identificador único. Extiende la implementación
@@ -55,6 +56,9 @@ public abstract class SolicitudConId extends SolicitudImpl {
   @ManyToOne(targetEntity = ExpedienteConId.class, fetch = FetchType.LAZY)
   @JoinColumn(name = "EXPEDIENTE")
   private ExpedienteConId expediente;
+  
+  @Transient
+  private int costeCentimos;
 
   /**
    * Obtiene el identificador único de la solicitud.
@@ -108,6 +112,17 @@ public abstract class SolicitudConId extends SolicitudImpl {
    */
   public void setExpediente(ExpedienteConId expediente) {
     this.expediente = expediente;
+  }
+  
+  @Override
+  public int getCosteCentimos() {
+    return costeCentimos;
+  }
+  
+  @Override
+  public void setCosteCentimos(int costeCentimos) {
+    this.costeCentimos = costeCentimos;
+    
   }
 
 }

@@ -19,9 +19,6 @@
 			<basic name="fechaCaducidadReconocimientoMedico" />
 			<basic name="localidadResidencia" />
 			<basic name="subdelegacionDefensa" />
-			<one-to-many name="solicitudes"
-				target-entity="es.mde.entidades.SolicitudConId"
-				mapped-by="reservista" />
 		</attributes>
 	</mapped-superclass>
 

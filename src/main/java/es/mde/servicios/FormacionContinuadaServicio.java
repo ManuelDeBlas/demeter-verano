@@ -58,7 +58,7 @@ public class FormacionContinuadaServicio extends AbstractSolicitudServicio<Forma
    *                                  necesarias.
    */
   @Override
-  protected int calcularCosteCentimos(FormacionContinuadaConId formacionContinuadaConId) {
+  public int calcularCosteCentimos(FormacionContinuadaConId formacionContinuadaConId) {
     int smi = costeFormacionContinuadaDAO.findByClave("smi-centimos").getValor();
     float cantidad = costeFormacionContinuadaDAO.findByClave(formacionContinuadaConId.getEscala()).getValor();
     return (int) (smi * cantidad * formacionContinuadaConId.getDuracionMeses());

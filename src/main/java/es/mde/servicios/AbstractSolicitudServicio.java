@@ -44,23 +44,13 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
   }
 
   /**
-   * Crea una nueva solicitud.
-   * 
-   * @param solicitud la solicitud a crear.
-   * @return la solicitud creada y guardada.
-   */
-  public void crearSolicitud(T solicitud) {
-    guardarYRecalcularCoste(solicitud);
-  }
-
-  /**
    * Actualiza una solicitud existente.
    * 
    * @param id identificador de la solicitud a actualizar.
    * @param solicitud datos de la solicitud para actualizar.
    * @return la solicitud actualizada y guardada.
    */
-  public void actualizarSolicitud(Long id, T solicitud) {
+  public void actualizarSolicitud(T solicitud) {
     // Esto está implementado en el Frontend poniendo el botón de modificar cuando la solicitud está
     // pendiente de evaluación
     // if (solicitud.getEstado() == Estados.ACEPTADA_PENDIENTE_PUBLICACION || solicitud.getEstado()
@@ -68,7 +58,6 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
     // throw new IllegalArgumentException("ERROR: La solicitud no se puede modificar ya que su
     // estado actual es: " + solicitud.getEstado().toString());
     // }
-    solicitud.setId(id);
     if (solicitud.getEstado() == Estados.RECHAZADA) {
       log.info("Se envía el email de cambio de estado a " + solicitud.getEmailPoc());
       emailSenderServicio.enviarEmail(solicitud.getEmailPoc(),
@@ -78,19 +67,7 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
               + solicitud.getFechaInicio() + " - " + solicitud.getFechaFin() + " ha cambiado a "
               + solicitud.getEstado().toString() + ".");
     }
-    guardarYRecalcularCoste(solicitud);
-  }
-
-  /**
-   * Guarda la solicitud en la base de datos y recalcula su coste en céntimos. Antes de guardar,
-   * verifica la viabilidad de la solicitud.
-   * 
-   * @param solicitud solicitud a guardar y calcular coste.
-   * @return la solicitud guardada.
-   */
-  private void guardarYRecalcularCoste(T solicitud) {
     comprobarViabilidadSolicitud(solicitud);
-    solicitud.setCosteCentimos(calcularCosteCentimos(solicitud));
   }
 
   /**
@@ -100,7 +77,7 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
    * @param solicitud solicitud para la cual se calcula el coste.
    * @return coste en céntimos.
    */
-  protected int calcularCosteCentimos(T solicitud) {
+  public int calcularCosteCentimos(T solicitud) {
     int costeDiaCentimos =
         costePorDiaDAO.findByEmpleo(solicitud.getReservista().getEmpleo()).getCentimos();
     int duracion = solicitud.getDiasDuracion();

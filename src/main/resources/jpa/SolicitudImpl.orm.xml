@@ -20,7 +20,6 @@
 			<basic name="cargoEnLaUnidadPoc" />
 			<basic name="emailPoc" />
 			<basic name="pagaSecres" />
-			<basic name="costeCentimos" />
 		</attributes>
 
 	</mapped-superclass>

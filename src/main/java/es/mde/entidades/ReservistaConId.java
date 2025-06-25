@@ -1,11 +1,14 @@
 package es.mde.entidades;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import es.mde.secres.Reservista;
 import es.mde.secres.Solicitud;
+import es.mde.secres.Solicitud.Estados;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,6 +39,10 @@ public class ReservistaConId extends Reservista {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(unique = true)
   private Long id;
+  
+  @OneToMany(mappedBy = "reservista", cascade = CascadeType.ALL, orphanRemoval = true)
+  @JsonIgnore
+  private Collection<SolicitudConId> solicitudes = new ArrayList<>();
 
   /**
    * Devuelve el identificador único del reservista.
@@ -55,27 +62,39 @@ public class ReservistaConId extends Reservista {
     this.id = id;
   }
 
-  /**
-   * Obtiene la colección de solicitudes asociadas al reservista. Se ignora en la
-   * serialización JSON para evitar referencias cíclicas.
-   * 
-   * @return la colección de solicitudes.
-   */
-  @Override
-  @OneToMany(targetEntity = SolicitudConId.class)
-  @JsonIgnore
-  public Collection<Solicitud> getSolicitudes() {
-    return super.getSolicitudes();
+  public Collection<SolicitudConId> getSolicitudes() {
+    return solicitudes;
   }
 
-  /**
-   * Añade una solicitud al reservista y establece la relación bidireccional.
-   * 
-   * @param solicitud solicitud a añadir.
-   */
   public void addSolicitudConId(SolicitudConId solicitud) {
-    super.getSolicitudes().add(solicitud);
+    solicitudes.add(solicitud);
     solicitud.setReservista(this);
   }
+
+  public void removeSolicitudConId(SolicitudConId solicitud) {
+    solicitudes.remove(solicitud);
+    solicitud.setReservista(null);
+  }
+  
+  /**
+   * Obtiene el número de días consumidos por el reservista.
+   * 
+   * @param anho
+   *
+   * @return el número de días consumidos.
+   */
+  public int getDiasConsumidos(int anho) {
+    int diasConsumidos = 0;
+    for (Solicitud solicitud : getSolicitudes()) {
+      if (solicitud.getFechaInicio().getYear() == anho
+          && (solicitud.getEstado().equals(Estados.ACEPTADA_PENDIENTE_PUBLICACION)
+              || solicitud.getEstado().equals(Estados.PUBLICADA))) {
+        diasConsumidos += solicitud.getDiasDuracion();
+      }
+    }
+
+    return diasConsumidos;
+  }
+
 
 }
