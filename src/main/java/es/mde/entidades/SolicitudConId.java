@@ -109,9 +109,5 @@ public abstract class SolicitudConId extends SolicitudImpl {
   public void setExpediente(ExpedienteConId expediente) {
     this.expediente = expediente;
   }
-  
-  public int getAnho() {
-    return getFechaInicio().getYear();
-  }
 
 }

@@ -2,7 +2,8 @@ package es.mde.servicios;
 
 import java.util.Objects;
 import java.util.Optional;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ import es.mde.util.StringUtils;
  */
 @Service
 public class ExpedienteServicio {
+
+  private static final Logger log = LoggerFactory.getLogger(ExpedienteServicio.class);
 
   /**
    * Registro auxiliar para devolver las entidades que se modificarán: expediente, solicitud y
@@ -184,7 +187,12 @@ public class ExpedienteServicio {
    * @param solicitud Solicitud modificada.
    */
   private void guardarCambios(ExpedienteConId expediente, SolicitudConId solicitud) {
-    expedienteDAO.save(expediente);
-    solicitudDAO.save(solicitud);
+    try {
+      expedienteDAO.save(expediente);
+      solicitudDAO.save(solicitud);
+    } catch (Exception e) {
+      log.error("Error al guardar cambios", e);
+      throw e;
+    }
   }
 }

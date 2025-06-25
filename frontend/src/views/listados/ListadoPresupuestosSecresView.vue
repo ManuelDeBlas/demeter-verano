@@ -11,7 +11,7 @@
       return {
         nuevosValores: {},
         anho: "",
-        cantidadCentimos: "",
+        cantidadCentimosConcedido: "",
         mensajeModal: "",
         mostrarModal: false,
       };
@@ -30,7 +30,7 @@
 
       async anhadirNuevoPresupuesto(presupuesto) {
         const patron = /^[0-9]+,[0-9]{2}$/;
-        if (!patron.test(this.cantidadCentimos)) {
+        if (!patron.test(this.cantidadCentimosConcedido)) {
           this.mensajeModal =
             "Formato inválido. Formato requerido: número entero, coma, dos decimales (ej. 123,45)";
           this.mostrarModal = true;
@@ -39,12 +39,12 @@
 
         this.mostrarModal = true;
         this.mensajeModal = "";
-        presupuesto.cantidadCentimos = parseInt(
-          this.cantidadCentimos.replace(",", "")
+        presupuesto.cantidadCentimosConcedido = parseInt(
+          this.cantidadCentimosConcedido.replace(",", "")
         );
         await this.anhadirElemento(presupuesto);
         this.anho = "";
-        this.cantidadCentimos = "";
+        this.cantidadCentimosConcedido = "";
         this.mensajeModal = "Presupuesto añadido correctamente.";
       },
 
@@ -62,11 +62,11 @@
 
         this.mostrarModal = true;
         this.mensajeModal = "";
-        const cantidadCentimos =
-          parseInt(nuevoValor.replace(",", "")) || presupuesto.cantidadCentimos;
+        const cantidadCentimosConcedido =
+          parseInt(nuevoValor.replace(",", "")) || presupuesto.cantidadCentimosConcedido;
         await this.editarElemento({
           ...presupuesto,
-          cantidadCentimos,
+          cantidadCentimosConcedido,
         });
         this.mensajeModal = "Presupuesto actualizado correctamente.";
         this.nuevosValores[clave] = "";
@@ -88,7 +88,7 @@
       <thead class="bg-gray-100">
         <tr>
           <th class="border px-4 py-2">Año</th>
-          <th class="border px-4 py-2">Cantidad</th>
+          <th class="border px-4 py-2">Cantidad concedida</th>
           <th class="border px-4 py-2">Nuevo valor</th>
           <th class="border px-4 py-2">Acciones</th>
         </tr>
@@ -100,7 +100,7 @@
         >
           <td class="border px-4 py-2">{{ presupuesto.anho }}</td>
           <td class="border px-4 py-2">
-            {{ formatearCentimosAEuros(presupuesto.cantidadCentimos) }}
+            {{ formatearCentimosAEuros(presupuesto.cantidadCentimosConcedido) }}
           </td>
           <td class="px-2 py-2">
             <input
@@ -117,13 +117,13 @@
               @click="
                 editarPresupuesto({
                   ...presupuesto,
-                  cantidadCentimos:
+                  cantidadCentimosConcedido:
                     parseInt(
                       nuevosValores[presupuesto._links.self.href].replace(
                         ',',
                         ''
                       )
-                    ) || presupuesto.cantidadCentimos,
+                    ) || presupuesto.cantidadCentimosConcedido,
                 })
               "
               class="btn btn-success"
@@ -145,7 +145,7 @@
           </td>
           <td class="px-2 py-2">
             <input
-              v-model="cantidadCentimos"
+              v-model="cantidadCentimosConcedido"
               type="text"
               pattern="^[0-9]+,[0-9]{2}$"
               title="Formato: número entero, coma, dos decimales"
@@ -159,7 +159,7 @@
               @click="
                 anhadirNuevoPresupuesto({
                   anho: anho,
-                  cantidadCentimos: parseInt(cantidadCentimos.replace(',', '')),
+                  cantidadCentimosConcedido: parseInt(cantidadCentimosConcedido.replace(',', '')),
                 })
               "
               class="btn btn-primary"

@@ -26,7 +26,6 @@ import es.mde.servicios.ExpedienteServicio;
 public class ExpedienteController {
 
   private final ExpedienteServicio expedienteServicio;
-  private final ExpedienteDAO expedienteDAO;
 
   /**
    * Constructor que inyecta el servicio de expedientes.
@@ -34,9 +33,8 @@ public class ExpedienteController {
    * @param expedienteServicio Servicio para la lógica de negocio de expedientes.
    */
   @Autowired
-  public ExpedienteController(ExpedienteServicio expedienteServicio, ExpedienteDAO expedienteDAO) {
+  public ExpedienteController(ExpedienteServicio expedienteServicio) {
     this.expedienteServicio = expedienteServicio;
-    this.expedienteDAO = expedienteDAO;
   }
 
   /**

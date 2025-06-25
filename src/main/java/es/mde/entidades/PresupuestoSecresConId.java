@@ -9,8 +9,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * Entidad JPA que representa un presupuesto con identificador único. Hereda los
- * atributos y métodos de la clase {@link Presupuesto}.
+ * Entidad JPA que representa un presupuesto con identificador único. Hereda los atributos y métodos
+ * de la clase {@link Presupuesto}.
  * 
  * Esta clase se mapea a la tabla 'PRESUPUESTOS' en la base de datos.
  * 
@@ -22,8 +22,7 @@ import jakarta.persistence.Table;
 public class PresupuestoSecresConId {
 
   /**
-   * Identificador único del presupuesto. Se genera automáticamente con la
-   * estrategia IDENTITY.
+   * Identificador único del presupuesto. Se genera automáticamente con la estrategia IDENTITY.
    */
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +30,7 @@ public class PresupuestoSecresConId {
   private Long id;
 
   private int cantidadCentimosConcedido;
+  private int anho;
 
   /**
    * Obtiene el identificador único del presupuesto.
@@ -49,13 +49,21 @@ public class PresupuestoSecresConId {
   public void setId(Long id) {
     this.id = id;
   }
-  
+
   public int getCantidadCentimosConcedido() {
     return cantidadCentimosConcedido;
   }
-  
+
   public void setCantidadCentimosConcedido(int cantidadCentimosConcedido) {
     this.cantidadCentimosConcedido = cantidadCentimosConcedido;
   }
-  
+
+  public int getAnho() {
+    return anho;
+  }
+
+  public void setAnho(int anho) {
+    this.anho = anho;
+  }
+
 }
