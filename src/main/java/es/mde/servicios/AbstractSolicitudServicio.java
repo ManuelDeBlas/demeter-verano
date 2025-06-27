@@ -51,11 +51,14 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
    * @return coste en céntimos.
    */
   public int calcularCosteCentimos(T solicitud) {
+    System.err.println("Coste: " + solicitud.getCosteCentimos());
+    // Aquí se produce un bucle infinito ya que para buscar en el DAO JPA tiene que guardar antes la
+    // entidad, lo cual dispara otra vez el listener
     int costeDiaCentimos =
         costePorDiaDAO.findByEmpleo(solicitud.getReservista().getEmpleo()).getCentimos();
+    System.err.println("Empleo: " + costeDiaCentimos);
     int duracion = solicitud.getDiasDuracion();
-    System.err.println("Coste día: " + costeDiaCentimos);
-    System.err.println("Duración: " + duracion);
+    System.err.println("duracion" + duracion);
     return Math.toIntExact(duracion * costeDiaCentimos);
   }
 

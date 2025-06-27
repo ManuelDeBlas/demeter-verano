@@ -23,30 +23,18 @@ public class PrestacionServiciosUnidadListener {
     prestacionServiciosUnidadServicio = servicio;
   }
 
-  @PrePersist
-  @PreUpdate
-  public void preGuardarYPreActualizar(PrestacionServiciosUnidadConId solicitud) {
-    prestacionServiciosUnidadServicio.comprobarViabilidadSolicitud(solicitud);
-    prestacionServiciosUnidadServicio.comprobarRechazoSolicitud(solicitud);
-    System.err.println("Coste antes de actualizar: " + solicitud.getCosteCentimos());
-    int nuevoCoste = prestacionServiciosUnidadServicio.calcularCosteCentimos(solicitud);
-    System.err.println("Nuevo coste: " + nuevoCoste);
-    if (solicitud.getCosteCentimos() != nuevoCoste) {
-      solicitud.setCosteCentimos(nuevoCoste);
-    }
-    System.err.println("Coste después de actualizar: " + solicitud.getCosteCentimos());
-  }
-
-  @PostPersist
-  @PostUpdate
-  public void postGuardarYActualizar(PrestacionServiciosUnidadConId solicitud) {
-    System.err.println("Coste antes de actualizar: " + solicitud.getCosteCentimos());
-    int nuevoCoste = prestacionServiciosUnidadServicio.calcularCosteCentimos(solicitud);
-    System.err.println("Nuevo coste: " + nuevoCoste);
-    if (solicitud.getCosteCentimos() != nuevoCoste) {
-      solicitud.setCosteCentimos(nuevoCoste);
-    }
-    System.err.println("Coste después de actualizar: " + solicitud.getCosteCentimos());
-  }
+//  @PrePersist
+//  @PreUpdate
+//  public void preGuardarYPreActualizar(PrestacionServiciosUnidadConId solicitud) {
+//    prestacionServiciosUnidadServicio.comprobarViabilidadSolicitud(solicitud);
+//    prestacionServiciosUnidadServicio.comprobarRechazoSolicitud(solicitud);
+//    System.err.println("Coste antes de actualizar: " + solicitud.getCosteCentimos());
+//    int nuevoCoste = prestacionServiciosUnidadServicio.calcularCosteCentimos(solicitud);
+//    System.err.println("Nuevo coste: " + nuevoCoste);
+//    if (solicitud.getCosteCentimos() != nuevoCoste) {
+//      solicitud.setCosteCentimos(nuevoCoste);
+//    }
+//    System.err.println("Coste después de actualizar: " + solicitud.getCosteCentimos());
+//  }
 
 }
