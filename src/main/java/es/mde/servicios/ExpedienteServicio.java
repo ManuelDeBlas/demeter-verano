@@ -100,7 +100,7 @@ public class ExpedienteServicio {
     int costeCentimosSolicitud = solicitud.getCosteCentimos();
 
     if (solicitud.isPagaSecres() && presupuestoSecresServicio
-        .getCantidadCentimosRestante(expediente.getAnho()) < costeCentimosSolicitud) {
+        .calcularCantidadCentimosRestante(expediente.getAnho()) < costeCentimosSolicitud) {
       throw new IllegalArgumentException(
           "ERROR: La SECRES no dispone de suficiente presupuesto en el año " + expediente.getAnho()
               + ". Aumente el presupuesto disponible hasta "
@@ -118,7 +118,7 @@ public class ExpedienteServicio {
 
     return respuesta + " correctamente. El presupuesto restante para el año " + expediente.getAnho()
         + " es de " + StringUtils.centimosToEurosString(
-            presupuestoSecresServicio.getCantidadCentimosRestante(expediente.getAnho()))
+            presupuestoSecresServicio.calcularCantidadCentimosRestante(expediente.getAnho()))
         + " €.";
   }
 
@@ -150,7 +150,7 @@ public class ExpedienteServicio {
 
     return respuesta + " correctamente. El presupuesto restante para el año " + expediente.getAnho()
         + " es de " + StringUtils.centimosToEurosString(
-            presupuestoSecresServicio.getCantidadCentimosRestante(expediente.getAnho()))
+            presupuestoSecresServicio.calcularCantidadCentimosRestante(expediente.getAnho()))
         + " €.";
   }
 

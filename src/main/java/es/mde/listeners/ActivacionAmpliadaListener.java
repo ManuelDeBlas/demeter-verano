@@ -21,22 +21,10 @@ public class ActivacionAmpliadaListener {
   }
   
   @PrePersist
-  public void crearActivacionAmpliada(ActivacionAmpliadaConId solicitud) {
-    activacionAmpliadaServicio.actualizarSolicitud(solicitud);
-  }
-  
-  // TODO Arreglar este apaño
-  private static final ThreadLocal<Boolean> enActualizacion = ThreadLocal.withInitial(() -> false);
-
   @PreUpdate
-  public void actualizar(ActivacionAmpliadaConId solicitud) {
-    if (enActualizacion.get()) return;
-    try {
-      enActualizacion.set(true);
-      activacionAmpliadaServicio.actualizarSolicitud(solicitud);
-    } finally {
-      enActualizacion.remove();
-    }
+  public void preGuardarYPreActualizar(ActivacionAmpliadaConId solicitud) {
+    activacionAmpliadaServicio.comprobarViabilidadSolicitud(solicitud);
+    activacionAmpliadaServicio.comprobarRechazoSolicitud(solicitud);
   }
   
   @PostLoad

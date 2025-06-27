@@ -1,11 +1,15 @@
 package es.mde.listeners;
 
+import javax.sound.midi.VoiceStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import es.mde.entidades.ActivacionAmpliadaConId;
 import es.mde.entidades.PrestacionServiciosUnidadConId;
 import es.mde.repositorios.PrestacionServiciosUnidadDAO;
 import es.mde.servicios.PrestacionServiciosUnidadServicio;
 import jakarta.persistence.PostLoad;
+import jakarta.persistence.PostPersist;
+import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 
@@ -20,26 +24,29 @@ public class PrestacionServiciosUnidadListener {
   }
 
   @PrePersist
-  public void crearPrestacion(PrestacionServiciosUnidadConId prestacion) {
-    prestacionServiciosUnidadServicio.actualizarSolicitud(prestacion);
-  }
-
-  // TODO Arreglar este apaño
-  private static final ThreadLocal<Boolean> enActualizacion = ThreadLocal.withInitial(() -> false);
-
   @PreUpdate
-  public void actualizar(PrestacionServiciosUnidadConId solicitud) {
-    if (enActualizacion.get()) return;
-    try {
-      enActualizacion.set(true);
-      prestacionServiciosUnidadServicio.actualizarSolicitud(solicitud);
-    } finally {
-      enActualizacion.remove();
+  public void preGuardarYPreActualizar(PrestacionServiciosUnidadConId solicitud) {
+    prestacionServiciosUnidadServicio.comprobarViabilidadSolicitud(solicitud);
+    prestacionServiciosUnidadServicio.comprobarRechazoSolicitud(solicitud);
+    System.err.println("Coste antes de actualizar: " + solicitud.getCosteCentimos());
+    int nuevoCoste = prestacionServiciosUnidadServicio.calcularCosteCentimos(solicitud);
+    System.err.println("Nuevo coste: " + nuevoCoste);
+    if (solicitud.getCosteCentimos() != nuevoCoste) {
+      solicitud.setCosteCentimos(nuevoCoste);
     }
+    System.err.println("Coste después de actualizar: " + solicitud.getCosteCentimos());
   }
-  
-  @PostLoad
-  public void calcularCoste(PrestacionServiciosUnidadConId solicitud) {
-    solicitud.setCosteCentimos(prestacionServiciosUnidadServicio.calcularCosteCentimos(solicitud));
+
+  @PostPersist
+  @PostUpdate
+  public void postGuardarYActualizar(PrestacionServiciosUnidadConId solicitud) {
+    System.err.println("Coste antes de actualizar: " + solicitud.getCosteCentimos());
+    int nuevoCoste = prestacionServiciosUnidadServicio.calcularCosteCentimos(solicitud);
+    System.err.println("Nuevo coste: " + nuevoCoste);
+    if (solicitud.getCosteCentimos() != nuevoCoste) {
+      solicitud.setCosteCentimos(nuevoCoste);
+    }
+    System.err.println("Coste después de actualizar: " + solicitud.getCosteCentimos());
   }
+
 }

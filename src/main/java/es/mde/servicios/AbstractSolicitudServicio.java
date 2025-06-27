@@ -44,33 +44,6 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
   }
 
   /**
-   * Actualiza una solicitud existente.
-   * 
-   * @param id identificador de la solicitud a actualizar.
-   * @param solicitud datos de la solicitud para actualizar.
-   * @return la solicitud actualizada y guardada.
-   */
-  public void actualizarSolicitud(T solicitud) {
-    // Esto está implementado en el Frontend poniendo el botón de modificar cuando la solicitud está
-    // pendiente de evaluación
-    // if (solicitud.getEstado() == Estados.ACEPTADA_PENDIENTE_PUBLICACION || solicitud.getEstado()
-    // == Estados.PUBLICADA) {
-    // throw new IllegalArgumentException("ERROR: La solicitud no se puede modificar ya que su
-    // estado actual es: " + solicitud.getEstado().toString());
-    // }
-    if (solicitud.getEstado() == Estados.RECHAZADA) {
-      log.info("Se envía el email de cambio de estado a " + solicitud.getEmailPoc());
-      emailSenderServicio.enviarEmail(solicitud.getEmailPoc(),
-          "El estado de la solicitud de activación se ha modificado",
-          "El estado de la solicitud de activación del reservista con DNI "
-              + solicitud.getReservista().getDni() + " entre las fechas "
-              + solicitud.getFechaInicio() + " - " + solicitud.getFechaFin() + " ha cambiado a "
-              + solicitud.getEstado().toString() + ".");
-    }
-    comprobarViabilidadSolicitud(solicitud);
-  }
-
-  /**
    * Calcula el coste en céntimos de una solicitud basándose en la duración y el coste diario
    * asociado al empleo del reservista.
    * 
@@ -81,6 +54,8 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
     int costeDiaCentimos =
         costePorDiaDAO.findByEmpleo(solicitud.getReservista().getEmpleo()).getCentimos();
     int duracion = solicitud.getDiasDuracion();
+    System.err.println("Coste día: " + costeDiaCentimos);
+    System.err.println("Duración: " + duracion);
     return Math.toIntExact(duracion * costeDiaCentimos);
   }
 
@@ -92,6 +67,13 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
    * @throws IllegalArgumentException si la solicitud no cumple las restricciones
    */
   public void comprobarViabilidadSolicitud(SolicitudConId solicitud) {
+    // Esto está implementado en el Frontend poniendo el botón de modificar cuando la solicitud está
+    // pendiente de evaluación
+    // if (solicitud.getEstado() == Estados.ACEPTADA_PENDIENTE_PUBLICACION || solicitud.getEstado()
+    // == Estados.PUBLICADA) {
+    // throw new IllegalArgumentException("ERROR: La solicitud no se puede modificar ya que su
+    // estado actual es: " + solicitud.getEstado().toString());
+    // }
     ReservistaConId reservista =
         entityManager.getReference(ReservistaConId.class, solicitud.getReservista().getId());
 
@@ -114,8 +96,18 @@ public abstract class AbstractSolicitudServicio<T extends SolicitudConId> {
           "ERROR: La fecha de caducidad del reconocimiento medico del reservista ("
               + fechaCaducidadReconocimientoMedico + ") transcurre durante la activación");
     }
+  }
 
-    reservista.addSolicitudConId(solicitud);
+  public void comprobarRechazoSolicitud(SolicitudConId solicitud) {
+    if (solicitud.getEstado() == Estados.RECHAZADA) {
+      log.info("Se envía el email de cambio de estado a " + solicitud.getEmailPoc());
+      emailSenderServicio.enviarEmail(solicitud.getEmailPoc(),
+          "El estado de la solicitud de activación se ha modificado",
+          "El estado de la solicitud de activación del reservista con DNI "
+              + solicitud.getReservista().getDni() + " entre las fechas "
+              + solicitud.getFechaInicio() + " - " + solicitud.getFechaFin() + " ha cambiado a "
+              + solicitud.getEstado().toString() + ".");
+    }
   }
 
 }

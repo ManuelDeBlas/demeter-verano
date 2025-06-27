@@ -85,7 +85,7 @@ public class ReservistaConId extends Reservista {
    */
   public int getDiasConsumidos(int anho) {
     int diasConsumidos = 0;
-    for (Solicitud solicitud : getSolicitudes()) {
+    for (SolicitudConId solicitud : getSolicitudes()) {
       if (solicitud.getFechaInicio().getYear() == anho
           && (solicitud.getEstado().equals(Estados.ACEPTADA_PENDIENTE_PUBLICACION)
               || solicitud.getEstado().equals(Estados.PUBLICADA))) {

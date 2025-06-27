@@ -1,5 +1,6 @@
 package es.mde.entidades;
 
+import java.time.temporal.ChronoUnit;
 import es.mde.secres.SolicitudImpl;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -57,7 +58,6 @@ public abstract class SolicitudConId extends SolicitudImpl {
   @JoinColumn(name = "EXPEDIENTE")
   private ExpedienteConId expediente;
   
-  @Transient
   private int costeCentimos;
 
   /**
@@ -114,15 +114,18 @@ public abstract class SolicitudConId extends SolicitudImpl {
     this.expediente = expediente;
   }
   
-  @Override
   public int getCosteCentimos() {
     return costeCentimos;
   }
   
-  @Override
   public void setCosteCentimos(int costeCentimos) {
     this.costeCentimos = costeCentimos;
-    
+  }
+  
+  public int getDiasDuracion() {
+    System.err.println("Fecha inicio: " + getFechaInicio());
+    System.err.println("Fechas fin: " + getFechaFin());
+    return Math.toIntExact(ChronoUnit.DAYS.between(getFechaInicio(), getFechaFin()) + 1);
   }
 
 }

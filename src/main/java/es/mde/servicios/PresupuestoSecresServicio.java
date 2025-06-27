@@ -21,7 +21,7 @@ public class PresupuestoSecresServicio {
     this.solicitudDAO = solicitudDAO;
   }
 
-  public int getCantidadCentimosRestante(int anho) {
+  public int calcularCantidadCentimosRestante(int anho) {
     PresupuestoSecresConId presupuesto = presupuestoSecresDAO.getByAnho(anho);
     if (presupuesto == null) {
       throw new IllegalArgumentException("ERROR: No existe presupuesto para el año " + anho);
